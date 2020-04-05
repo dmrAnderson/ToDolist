@@ -1,0 +1,5 @@
+<h3>Home</h3>
+<% @items.each do |item| %>
+  <h4><%= link_to item.title, item %></h4>
+  <p><%= item.description %></p>
+<% end %>

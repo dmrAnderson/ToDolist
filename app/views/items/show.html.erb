@@ -1,0 +1,10 @@
+<h3>Show</h3>
+<div class='font-weight-bold'>Title: </div>
+<%= @item.title %>
+<div class='font-weight-bold'>Description: </div>
+<%= @item.description %>
+<div>
+  <%= link_to 'Edit', edit_item_path(@item) %>
+  |
+  <%= link_to 'Delete', @item, method: :delete %>
+</div>
