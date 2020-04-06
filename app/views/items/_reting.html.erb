@@ -1,0 +1,14 @@
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Active
+    <span class="badge badge-light badge-pill">
+      <%= @items.where(completed: false).count %>
+    </span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Completed
+    <span class="badge badge-light badge-pill">
+      <%= @items.where(completed: true).count %>
+    </span>
+  </li>
+</ul>

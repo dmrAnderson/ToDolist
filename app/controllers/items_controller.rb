@@ -3,24 +3,21 @@
 # RESTful for Items
 class ItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_items, except: %i[index new create]
+  before_action :find_items, except: %i[index create]
 
   def index
-    @items = Item.all.order(created_at: :desc)
+    @create_item = current_user.items.build
+    @items = current_user.items.order(created_at: :desc)
   end
 
   def show; end
 
-  def new
-    @item = Item.new
-  end
-
   def edit; end
 
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items.build(item_params)
     if @item.save
-      redirect_to :root, notice: 'Item created'
+      redirect_to :root, light: 'Task created'
     else
       render 'new'
     end
@@ -28,7 +25,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to :root, notice: 'Item updated'
+      redirect_to :root, light: 'Task updated'
     else
       render 'edit'
     end
@@ -36,7 +33,19 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    redirect_to :root, notice: 'Item deleted'
+    redirect_to :root, light: 'Task deleted'
+  end
+
+  def completed
+    if params[:item][:completed] == '1' && !@item.completed?
+      @item.update_columns(completed: true, completed_at: Time.now)
+      redirect_to :root, light: 'Completed'
+    elsif params[:item][:completed] == '0' && @item.completed?
+      @item.update_columns(completed: false, completed_at: nil)
+      redirect_to :root, light: 'Uncompleted'
+    else
+      redirect_to :root, light: 'Check the box'
+    end
   end
 
   private
@@ -46,6 +55,6 @@ class ItemsController < ApplicationController
   end
 
   def find_items
-    @item = Item.find(params[:id])
+    @item = current_user.items.find(params[:id])
   end
 end

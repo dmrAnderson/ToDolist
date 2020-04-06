@@ -2,4 +2,5 @@
 
 # Items model
 class Item < ApplicationRecord
+  belongs_to :user
 end

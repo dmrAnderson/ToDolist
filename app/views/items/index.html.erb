@@ -1,5 +1,11 @@
-<h3>Home</h3>
-<% @items.each do |item| %>
-  <h4><%= link_to item.title, item %></h4>
-  <p><%= item.description %></p>
-<% end %>
+<div class="row mt-2">
+  <div class="col-md-4">
+    <%= render "form" %>
+  </div>
+  <div class="col-md-2">
+    <%= render "reting" %>
+  </div>
+  <div class="col-md-8">
+    <%= render "all_items" %>
+  </div>
+</div>
