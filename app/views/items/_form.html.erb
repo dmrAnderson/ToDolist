@@ -1,5 +1,7 @@
-<%= simple_form_for(@create_item, html: { class: "border rounded bg-white px-3 py-3"}) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.button :submit, "Create", class: "btn btn-light btn-lg btn-block" %>
+<%= simple_form_for(@item,
+                    html: { class: "border rounded bg-white px-3 py-3"}) do |f| %>
+  <%= f.input :title, placeholder: "Maximum is 50" %>
+  <%= f.input :description, placeholder: "and 150 characters" %>
+  <%= f.button :submit, action_name == "edit" ? "Change" : "Create",
+                        class: "btn btn-light btn-lg btn-block" %>
 <% end %>

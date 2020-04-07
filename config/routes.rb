@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'items#index'
-  resources :items, except: [:new] do
+  resources :items, except: [:new, :show] do
     patch :completed, on: :member
   end
 end

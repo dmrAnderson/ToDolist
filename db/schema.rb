@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2020_04_06_151716) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "completed", default: false
-    t.datetime "completed_at"
     t.integer "user_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end

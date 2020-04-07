@@ -1,2 +1,6 @@
-<%= notice %>
-<%= alert %>
+<div class="text-center mb-2">
+  <% unless controller_name == "items" %>
+    <%= notice %>
+    <%= alert %>
+  <% end %>
+</div>

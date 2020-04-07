@@ -6,45 +6,42 @@ class ItemsController < ApplicationController
   before_action :find_items, except: %i[index create]
 
   def index
-    @create_item = current_user.items.build
+    @item = current_user.items.build
     @items = current_user.items.order(created_at: :desc)
   end
-
-  def show; end
 
   def edit; end
 
   def create
-    @item = current_user.items.build(item_params)
-    if @item.save
-      redirect_to :root, light: 'Task created'
+    if (@item = current_user.items.build(item_params)).save
+      back_with_flash("Created")
     else
-      render 'new'
+      back_with_flash("Look at form")
     end
   end
 
   def update
     if @item.update(item_params)
-      redirect_to :root, light: 'Task updated'
+      back_with_flash("Updated")
     else
-      render 'edit'
+      render :edit
     end
   end
 
   def destroy
     @item.destroy
-    redirect_to :root, light: 'Task deleted'
+    back_with_flash("Deleted")
   end
 
   def completed
-    if params[:item][:completed] == '1' && !@item.completed?
-      @item.update_columns(completed: true, completed_at: Time.now)
-      redirect_to :root, light: 'Completed'
-    elsif params[:item][:completed] == '0' && @item.completed?
-      @item.update_columns(completed: false, completed_at: nil)
-      redirect_to :root, light: 'Uncompleted'
+    if params[:item][:completed] == "1" && !@item.completed?
+      @item.update_columns(completed: true)
+      back_with_flash("Completed")
+    elsif params[:item][:completed] == "0" && @item.completed?
+      @item.update_columns(completed: false)
+      back_with_flash("Uncompleted")
     else
-      redirect_to :root, light: 'Check the box'
+      back_with_flash("Check the box")
     end
   end
 
