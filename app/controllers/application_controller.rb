@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   add_flash_types :light
 
   def back_with_flash(message)
-    redirect_to :root, light: message
+    redirect_to (request.referrer || :root), light: message
   end
 end

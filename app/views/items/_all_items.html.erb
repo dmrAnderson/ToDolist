@@ -1,32 +1,37 @@
 <% @items.each do |item| %>
   <div class="row">
     <div class="col text-right pt-4">
-      <% if item.completed? %>
-        <i class="fa fa-lg fa-check"></i>
+      <% unless item.completed? %>
+        <%= link_to list_path(@list, item_edit: item.id),
+                    method: :get,
+                    class: "text-decoration-none text-dark" do %>
+          <i class="fa fa-lg fa-wrench"></i>
+        <% end %>
       <% end %>
     </div>
     <div class="col-8">
       <div class="border bg-white rounded <%= "mut" if item.completed? %> px-3 py-2 mb-2">
     	  <div class="d-flex justify-content-between align-items-center">
-          <h4 class="col-10 text-truncate font-weight-bold mb-0 px-0"><%= item.title %></h4>
-          <%= form_for(item, url: completed_item_url(item), method: :patch) do |f| %>
+          <h4 class="col-10 text-truncate font-weight-bold mb-0 px-0">
+            <%= item.title %>
+          </h4>
+          <%= form_for(item, url: completed_list_item_url(item.id),
+                       method: :patch) do |f| %>
             <%= f.check_box :completed %>
-            <%= f.submit (item.completed? ? "Undone" : "Done"), class: "btn btn-light btn-sm" %>
-        </div>
-            <div class="mb-1"><%= item.description %></div>
+            <%= f.submit (item.completed? ? "Undone" : "Done"),
+                         class: "btn btn-light btn-sm" %>
           <% end %>
+        </div>
+        <div class="mb-1"><%= item.description %></div>
       </div>
     </div>
-    <div class="col-1 pt-4">
-      <%= link_to edit_item_path(item), method: :get,
-                                        class: "text-decoration-none text-dark" do %>
-        <i class="fa fa-lg fa-wrench"></i>
-      <% end %>
-    </div>
-    <div class="col-1 pt-4">
-      <%= link_to item, method: :delete, 
-                        class: "text-decoration-none text-dark" do %>
-        <i class="fa fa-lg fa-trash"></i>
+    <div class="col-2 pt-4">
+      <% if item.completed? %>
+        <%= link_to list_item_path(item),
+                    method: :delete, 
+                    class: "text-decoration-none text-dark" do %>
+          <i class="fa fa-lg fa-trash"></i>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -3,17 +3,10 @@
 # RESTful for Items
 class ItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_items, except: %i[index create]
-
-  def index
-    @item = current_user.items.build
-    @items = current_user.items.order(created_at: :desc)
-  end
-
-  def edit; end
+  before_action :find_items, except: [:create, :update]
 
   def create
-    if (@item = current_user.items.build(item_params)).save
+    if List.find(params[:list_id]).items.build(item_params).save
       back_with_flash("Created")
     else
       back_with_flash("Look at form")
@@ -21,10 +14,10 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.update(item_params)
-      back_with_flash("Updated")
+    if List.find(params[:list_id]).items.find(params[:id]).update(item_params) # FIX
+      redirect_to list_path(params[:list_id]), light: "Updated"
     else
-      render :edit
+      redirect_to list_path(params[:list_id]), light: "Wrong"
     end
   end
 
@@ -52,6 +45,6 @@ class ItemsController < ApplicationController
   end
 
   def find_items
-    @item = current_user.items.find(params[:id])
+    @item = List.find(params[:id]).items.find(params[:list_id]) # id go back and forth
   end
 end

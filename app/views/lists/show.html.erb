@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @list.name %>
+</p>
+<%= link_to 'Edit', edit_list_path(@list) %> |
+<%= link_to 'Back', lists_path %>
+
+<div class="col-md-10 offset-md-3 p-0 mb-2">
+  <div class="row mt-2">
+    <div class="col-md-5 p-0">
+      <%= render "items/form" %>
+    </div>
+    <div class="col-md-2">
+      <%= render "items/reting" %>
+      <%= render "layouts/flash" %>
+    </div>
+  </div>
+</div>
+<div class="col-md-10 offset-md-1">
+  <%= render "items/all_items" %>
+</div>
