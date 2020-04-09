@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ListsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_list, except: %i[index new create]
@@ -18,7 +20,7 @@ class ListsController < ApplicationController
 
   def create
     if (@list = current_user.lists.build(list_params)).save
-      back_with_flash("Created")
+      redirect_to @list, ligth: 'Created'
     else
       render :new
     end
@@ -26,7 +28,7 @@ class ListsController < ApplicationController
 
   def update
     if @list.update(list_params)
-      back_with_flash(Updated)
+      redirect_to :root, ligth: 'Updated'
     else
       render :edit
     end
@@ -34,7 +36,7 @@ class ListsController < ApplicationController
 
   def destroy
     @list.destroy
-    back_with_flash("Deleted")
+    redirect_to :root, ligth: 'Deleted'
   end
 
   private

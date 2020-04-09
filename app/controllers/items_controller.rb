@@ -1,50 +1,57 @@
 # frozen_string_literal: true
 
-# RESTful for Items
 class ItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_items, except: [:create, :update]
+  before_action :find_list
+  before_action :find_item, except: [:create]
 
   def create
-    if List.find(params[:list_id]).items.build(item_params).save
-      back_with_flash("Created")
-    else
-      back_with_flash("Look at form")
-    end
+    msg = if @list.items.build(item_params).save
+            'Created'
+          else
+            'Look at form'
+          end
+    redirect_to @list, light: msg
   end
 
   def update
-    if List.find(params[:list_id]).items.find(params[:id]).update(item_params) # FIX
-      redirect_to list_path(params[:list_id]), light: "Updated"
-    else
-      redirect_to list_path(params[:list_id]), light: "Wrong"
-    end
+    msg = if @item.update(item_params)
+            'Updated'
+          else
+            'Wrong'
+          end
+    redirect_to @list, light: msg
   end
 
   def destroy
     @item.destroy
-    back_with_flash("Deleted")
+    redirect_to @list, light: 'Deleted'
   end
 
   def completed
-    if params[:item][:completed] == "1" && !@item.completed?
-      @item.update_columns(completed: true)
-      back_with_flash("Completed")
-    elsif params[:item][:completed] == "0" && @item.completed?
-      @item.update_columns(completed: false)
-      back_with_flash("Uncompleted")
+    if params[:item][:completed] == '1' && !@item.completed?
+      @item.done_or_undone
+      msg = 'Completed'
+    elsif params[:item][:completed] == '0' && @item.completed?
+      @item.done_or_undone
+      msg = 'Uncompleted'
     else
-      back_with_flash("Check the box")
+      msg = 'Check the box'
     end
+    redirect_to @list, light: msg
   end
 
   private
 
-  def item_params
-    params.require(:item).permit(:title, :description)
+  def find_list
+    @list = List.find(params[:list_id])
   end
 
-  def find_items
-    @item = List.find(params[:id]).items.find(params[:list_id]) # id go back and forth
+  def find_item
+    @item = @list.items.find(params[:id])
+  end
+
+  def item_params
+    params.require(:item).permit(:title, :description)
   end
 end

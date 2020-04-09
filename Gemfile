@@ -15,9 +15,9 @@ gem 'webpacker', '~> 4.0'
 
 # my gems
 gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'rubocop', '~> 0.81.0', require: false
 gem 'simple_form', '~> 5.0', '>= 5.0.2'
-gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
