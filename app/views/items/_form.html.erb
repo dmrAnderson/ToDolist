@@ -1,6 +1,7 @@
 <%= simple_form_for([@list, (params[:item_edit] ? @list.items.find(params[:item_edit]) : @list.items.build)],
                     html: { class: "border rounded bg-white px-3 py-3"}) do |f| %>
-  <%= f.input :title, placeholder: "Maximum is 50", autofocus: (params[:item_edit] ? true : false) %>
+  <%= f.input :title, placeholder: "Maximum is 50",
+                      autofocus: (params[:item_edit] ? true : false) %>
   <%= f.input :description, placeholder: "and 150 characters" %>
   <%= f.button :submit, params[:item_edit] ? "Change" : "Create",
                         class: "btn btn-light btn-lg btn-block" %>

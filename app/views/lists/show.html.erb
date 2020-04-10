@@ -1,16 +1,19 @@
 <div class="row">
   <div class="col-md-2 text-right pt-2">
-    <%= link_to :root, class: "h3 text-decoration-none text-dark" do %>
+    <%= link_to :root,
+                class: "h3 text-decoration-none text-dark" do %>
       <i class="fa fa-lg fa-chevron-circle-left"></i>
     <% end %>
   </div>
-  <h4 class="col-md-8 border rounded font-weight-bold bg-white text-center mb-2 p-3">
+  <h4 class="col-md-8 border rounded font-weight-bold
+             bg-white text-center mb-2 p-3">
     <%= @list.name %>
   </h4> 
   <% unless @list.items.where(completed: false).any? %>
     <div class="col-md-2 pt-2">
-      <%= link_to @list, method: :delete,
-                         class: "h4 text-decoration-none text-dark" do %>
+      <%= link_to @list,
+                  method: :delete,
+                  class: "h4 text-decoration-none text-dark" do %>
         <i class="fa fa-lg fa-times"></i>
       <% end %>
     </div>
@@ -28,5 +31,5 @@
   </div>
 </div>
 <div class="col-md-10 offset-md-1">
-  <%= render "items/all_items" %>
+  <%= render @items %>
 </div>

@@ -1,30 +1,10 @@
 <div class="offset-md-2 mt-5">
   <div class="offset-md-2 col-md-6 text-center mb-5">
-    <%= link_to 'New List', new_list_path, class: "btn btn-light btn-lg btn-block" %>
+    <%= link_to 'New List', new_list_path,
+                class: "btn btn-light btn-lg btn-block" %>
+    <div class="border-bottom pt-3"></div>
   </div>
   <div class="row">
-    <% @lists.each do |list| %>
-      <div class="col-md-1 text-right pt-2">
-        <%= link_to list, class: "h3 text-decoration-none text-dark" do %>
-          <i class="fa fa-lg fa-chevron-circle-right"></i>
-        <% end %>
-      </div>
-      <div class="col-md-9">
-        <h4 class="border rounded font-weight-bold bg-white text-center mb-2 p-3">
-          <%= list.name %>
-        </h4>
-      </div>
-      <div class="col-md-1 pt-2">
-        <%= link_to edit_list_path(list), class: "h4 text-decoration-none text-dark" do %>
-          <i class="fa fa-lg fa-cog"></i>
-        <% end %>
-      </div>
-      <div class="col-md-1 pt-2">
-        <%= link_to list, method: :delete,
-                          class: "h4 text-decoration-none text-dark" do %>
-          <i class="fa fa-lg fa-times"></i>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render @lists %>
   </div>
 </div>

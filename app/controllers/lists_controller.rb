@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comment
 class ListsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_list, except: %i[index new create]

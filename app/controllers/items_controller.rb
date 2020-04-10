@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comment
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_list

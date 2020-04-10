@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-# global helper
+# comment
 module ApplicationHelper
 end

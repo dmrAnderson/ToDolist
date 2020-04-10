@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Items model
+# comment
 class Item < ApplicationRecord
   belongs_to :list
   validates  :title,       length: { in: 1..50 }
