@@ -15,8 +15,7 @@
         <h5 class="col-10 text-truncate font-weight-bold mb-0 px-0">
           <%= item.title %>
         </h5>
-        <%= form_for(item, url: completed_list_item_url(@list, item),
-                     method: :patch) do |f| %>
+        <%= form_for([@list, item]) do |f| %>
           <%= f.check_box :completed %>
           <%= f.submit (item.completed? ? "Undone" : "Done"),
                        class: "btn btn-light btn-sm" %>

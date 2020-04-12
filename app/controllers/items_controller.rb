@@ -4,7 +4,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_list
-  before_action :find_item, except: [:create]
+  before_action :find_item, except: :create
 
   def create
     msg = if @list.items.build(item_params).save
@@ -16,30 +16,29 @@ class ItemsController < ApplicationController
   end
 
   def update
-    msg = if @item.update(item_params)
-            'Updated'
-          else
-            'Wrong'
-          end
+    if (check_box = params[:item][:completed]).present?
+      if check_box == '1' && !@item.completed?
+        @item.done_or_undone
+        msg = 'Completed'
+      elsif check_box == '0' && @item.completed?
+        @item.done_or_undone
+        msg = 'Uncompleted'
+      else
+        msg = 'Check the box'
+      end
+    else
+      msg = if @item.update(item_params)
+              'Updated'
+            else
+              'Wrong'
+            end
+    end
     redirect_to @list, light: msg
   end
 
   def destroy
     @item.destroy
     redirect_to @list, light: 'Deleted'
-  end
-
-  def completed
-    if params[:item][:completed] == '1' && !@item.completed?
-      @item.done_or_undone
-      msg = 'Completed'
-    elsif params[:item][:completed] == '0' && @item.completed?
-      @item.done_or_undone
-      msg = 'Uncompleted'
-    else
-      msg = 'Check the box'
-    end
-    redirect_to @list, light: msg
   end
 
   private
