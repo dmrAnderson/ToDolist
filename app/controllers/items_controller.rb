@@ -27,11 +27,7 @@ class ItemsController < ApplicationController
         msg = 'Check the box'
       end
     else
-      msg = if @item.update(item_params)
-              'Updated'
-            else
-              'Wrong'
-            end
+      msg = @item.update(item_params) ? 'Updated' : 'Wrong'
     end
     redirect_to @list, light: msg
   end

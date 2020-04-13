@@ -10,15 +10,17 @@
     <%= list.name %>
   </h4>
 </div>
-<div class="col-md-1 pt-2">
+<div class="col-md-1 pt-3">
   <%= link_to edit_list_path(list),
-              class: "h4 text-decoration-none text-dark" do %>
+              class: "h5 text-decoration-none text-black-50" do %>
     <i class="fa fa-lg fa-cog"></i>
   <% end %>
 </div>
-<div class="col-md-1 pt-2">
-  <%= link_to list, method: :delete,
-              class: "h4 text-decoration-none text-dark" do %>
-    <i class="fa fa-lg fa-times"></i>
+<div class="col-md-1 pt-3">
+  <% unless list.items.where(completed: false).any? %>
+    <%= link_to list, method: :delete,
+                class: "h5 text-decoration-none text-black-50" do %>
+      <i class="fa fa-lg fa-times"></i>
+    <% end %>
   <% end %>
 </div>

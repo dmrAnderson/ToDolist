@@ -3,7 +3,7 @@
     <% unless item.completed? %>
       <%= link_to list_path(@list, item_edit: item.id),
                   method: :get,
-                  class: "text-decoration-none text-dark" do %>
+                  class: "text-decoration-none text-black-50" do %>
         <i class="fa fa-lg fa-wrench"></i>
       <% end %>
     <% end %>
@@ -28,7 +28,7 @@
     <% if item.completed? %>
       <%= link_to list_item_path(@list, item),
                   method: :delete, 
-                  class: "text-decoration-none text-dark" do %>
+                  class: "text-decoration-none text-black-50" do %>
         <i class="fa fa-lg fa-trash"></i>
       <% end %>
     <% end %>
