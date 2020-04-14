@@ -16,18 +16,11 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if (check_box = params[:item][:completed]).present?
-      if check_box == '1' && !@item.completed?
-        @item.done_or_undone
-        msg = 'Completed'
-      elsif check_box == '0' && @item.completed?
-        @item.done_or_undone
-        msg = 'Uncompleted'
-      else
-        msg = 'Check the box'
-      end
-    else
+    if params[:commit].present?
       msg = @item.update(item_params) ? 'Updated' : 'Wrong'
+    else
+      msg = @item.completed ? 'Unompleted' : 'Completed'
+      @item.done_or_undone
     end
     redirect_to @list, light: msg
   end
@@ -48,6 +41,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:title, :description)
+    params.require(:item).permit(:description)
   end
 end

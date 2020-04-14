@@ -1,33 +1,30 @@
 <div class="row">
-  <div class="col text-right pt-4">
+  <div class="col-2 text-right pt-3">
     <% unless item.completed? %>
       <%= link_to list_path(@list, item_edit: item.id),
                   method: :get,
                   class: "text-decoration-none text-black-50" do %>
-        <i class="fa fa-lg fa-wrench"></i>
+        <i class="fa fa-lg fa-edit"></i>
       <% end %>
     <% end %>
   </div>
-  <div class="col-8">
+  <div class="col-7">
     <div class="border bg-white rounded 
-                <%= "mut" if item.completed? %> px-3 py-2 mb-2">
+                <%= "mut" if item.completed %> px-3 py-2 mb-2">
   	  <div class="d-flex justify-content-between align-items-center">
-        <h5 class="col-10 text-truncate font-weight-bold mb-0 px-0">
-          <%= item.title %>
-        </h5>
-        <%= form_for([@list, item]) do |f| %>
-          <%= f.check_box :completed %>
-          <%= f.submit (item.completed? ? "Undone" : "Done"),
-                       class: "btn btn-light btn-sm" %>
-        <% end %>
+        <div class="my-1"><%= item.description %></div>
+        <%= check_box_tag "item", "done",
+                          item.completed,
+                          data: { url: list_item_path(@list, item),
+                                  remote: true, method: :patch } %>
       </div>
-      <div class="mb-1"><%= item.description %></div>
     </div>
   </div>
-  <div class="col-2 pt-4">
+  <div class="col pt-3">
     <% if item.completed? %>
       <%= link_to list_item_path(@list, item),
-                  method: :delete, 
+                  method: :delete,
+                  remote: true, 
                   class: "text-decoration-none text-black-50" do %>
         <i class="fa fa-lg fa-trash"></i>
       <% end %>
