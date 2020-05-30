@@ -1,7 +1,5 @@
 <% if flash.any? %>
   <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %> font-weight-bold mt-2 mb-0">
-      <%= message unless message == "You need to sign in or sign up before continuing." %>
-    </div>
+    <div><%= message %></div>
   <% end %>
 <% end %>

@@ -1,7 +1,7 @@
 <label>
-  <%= link_to "Edit", list_path(@list, item_edit: item.id), method: :get unless item.completed? %>
+<!--  <%= link_to "Edit", list_path(@list, item_edit: item.id), method: :get unless item.completed? %> -->
   <%= check_box_tag "item", "done", item.completed, data: { url: list_item_path(@list, item), remote: true, method: :patch } %>
   <i></i>
   <span><%= item.description %></span>
-  <%= link_to "Delete", list_item_path(@list, item), method: :delete, remote: true if item.completed? %>
+<!--  <%= link_to "Delete", list_item_path(@list, item), method: :delete, remote: true if item.completed? %> -->
 </label>

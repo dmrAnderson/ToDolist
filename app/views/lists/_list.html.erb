@@ -1,26 +1,4 @@
-<div class="col-md-1 text-right pt-2">
-  <%= link_to list, 
-              class: "h3 text-decoration-none text-dark" do %>
-    <i class="fa fa-lg fa-chevron-circle-right"></i>
-  <% end %>
-</div>
-<div class="col-md-9">
-  <h4 class="border rounded col-12 text-truncate 
-             font-weight-bold bg-white text-center mb-2 p-3">
-    <%= list.name %>
-  </h4>
-</div>
-<div class="col-md-1 pt-3">
-  <%= link_to edit_list_path(list),
-              class: "h5 text-decoration-none text-black-50" do %>
-    <i class="fa fa-lg fa-wrench"></i>
-  <% end %>
-</div>
-<div class="col-md-1 pt-3">
-  <% unless list.items.where(completed: false).any? %>
-    <%= link_to list, method: :delete,
-                class: "h5 text-decoration-none text-black-50" do %>
-      <i class="fa fa-lg fa-times"></i>
-    <% end %>
-  <% end %>
-</div>
+<%= link_to "Show", list %>
+<%= list.name %>
+<%= link_to "Edit" edit_list_path(list) %>
+<%= link_to "Delete" list, method: :delete unless list.items.where(completed: false).any? %>

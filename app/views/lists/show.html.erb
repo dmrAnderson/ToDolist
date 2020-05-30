@@ -1,13 +1,6 @@
 <div class="list">
   <h2><%= @list.name %></h2> 
-  <% unless @list.items.where(completed: false).any? %>
-    <%= link_to @list, method: :delete do %>
-      <i class="fa fa-lg fa-times"></i>
-    <% end %>
-  <% end %>
-  <%= render "items/form" %>
-  <%= render "items/reting" %>
-  <%= render "layouts/flash" %>
+  <%= link_to "Deleted", @list, method: :delete unless @list.items.where(completed: false).any? %>
   <%= render @items %>
 </div>
   
